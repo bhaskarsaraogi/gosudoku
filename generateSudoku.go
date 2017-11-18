@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	//"math/rand"
+)
 
 type grid [9][9]int
 
@@ -87,6 +90,10 @@ func printSudoku(data *grid) {
 func main()  {
 
 	data := grid{}
-	GenerateSudoku(&data)
-	printSudoku(&data)
+	if GenerateSudoku(&data) {
+		printSudoku(&data)
+	} else {
+		fmt.Println("No Grid could be formed!")
+	}
+
 }
