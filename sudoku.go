@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"errors"
 	"time"
+	"math"
 )
 
 type Grid [9][9]int
@@ -37,11 +38,12 @@ func GenerateSudoku(data *Grid, removeNDigits int) error {
 	// implement generation logic
 	g := 0
 	set := make(map[int]bool)
+	rand.Seed(time.Now().Unix())
+
 	for g < 3 {
 		for i:=0 + g*3; i<3 + g*3; i++ {
 			for j:=0 + g*3; j < 3 + g*3; j++ {
 
-				rand.Seed(time.Now().Unix())
 				n := rand.Intn(9)+1
 				for set[n] {
 					n = rand.Intn(9)+1
@@ -61,14 +63,8 @@ func GenerateSudoku(data *Grid, removeNDigits int) error {
 	// removeNDigits from generated sudoku
 	for removeNDigits > 0 {
 
-		rand.Seed(time.Now().Unix())
-		i := rand.Intn(9)
-
-		rand.Seed(time.Now().Unix())
-		j := rand.Intn(9)
-
-		if data[i][j] != 0 {
-			data[i][j] = 0
+		if i,j := rand.Intn(math.MaxInt32), rand.Intn(math.MaxInt32); data[i%9][j%9] != 0 {
+			data[i%9][j%9] = 0
 			removeNDigits--
 		}
 	}

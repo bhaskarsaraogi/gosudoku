@@ -7,7 +7,7 @@ func main()  {
 
 	var data gosudoku.Grid
 
-	err := gosudoku.GenerateSudoku(&data, 35)
+	err := gosudoku.GenerateSudoku(&data, 40)
 	if err != nil {
 		fmt.Println(err)
 	} else {
