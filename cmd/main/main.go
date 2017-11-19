@@ -5,7 +5,18 @@ import "github.com/bhaskarsaraogi/gosudoku"
 
 func main()  {
 
-	data := gosudoku.Grid{}
+	var data gosudoku.Grid
+
+	err := gosudoku.GenerateSudoku(&data, 35)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		gosudoku.PrintSudoku(&data)
+	}
+
+	fmt.Println()
+	defer fmt.Println()
+
 	if gosudoku.SolveSudoku(&data) {
 		gosudoku.PrintSudoku(&data)
 	} else {

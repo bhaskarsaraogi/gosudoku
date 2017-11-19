@@ -1,5 +1,6 @@
 [ ] add cli: solve sudoku, gen sodoku, gen wait solve, help validate
-[ ] solver
-[ ] generator
+[x] solver
+[x] generator
 [ ] readme
 [x] package wireup
+[ ] optimize generator digits cleanup

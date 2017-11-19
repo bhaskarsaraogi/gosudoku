@@ -2,7 +2,9 @@ package gosudoku
 
 import (
 	"fmt"
-	//"math/rand"
+	"math/rand"
+	"errors"
+	"time"
 )
 
 type Grid [9][9]int
@@ -29,6 +31,49 @@ func SolveSudoku(data *Grid) bool {
 	}
 
 	return false
+}
+
+func GenerateSudoku(data *Grid, removeNDigits int) error {
+	// implement generation logic
+	g := 0
+	set := make(map[int]bool)
+	for g < 3 {
+		for i:=0 + g*3; i<3 + g*3; i++ {
+			for j:=0 + g*3; j < 3 + g*3; j++ {
+
+				rand.Seed(time.Now().Unix())
+				n := rand.Intn(9)+1
+				for set[n] {
+					n = rand.Intn(9)+1
+				}
+				data[i][j] = n
+				set[n] = true
+			}
+		}
+		g++
+		set = make(map[int]bool)
+	}
+
+	if !SolveSudoku(data) {
+		return errors.New("Unable to solve sudoku")
+	}
+
+	// removeNDigits from generated sudoku
+	for removeNDigits > 0 {
+
+		rand.Seed(time.Now().Unix())
+		i := rand.Intn(9)
+
+		rand.Seed(time.Now().Unix())
+		j := rand.Intn(9)
+
+		if data[i][j] != 0 {
+			data[i][j] = 0
+			removeNDigits--
+		}
+	}
+
+	return nil
 }
 
 func findUnassignedLocation(data *Grid, row *int, col *int) bool{
