@@ -8,11 +8,11 @@ $ go get github.com/bhaskarsaraogi/gosudoku/cmd/gosudoku
 
 ## Play
 
-####Generate a sudoku puzzle:
+#### Generate a sudoku puzzle:
 ```
 $ ./gosudoku -generate
 ```
-######Output
+###### Output
 
     9 6 0 1 0 0 5 7 8 
     0 5 0 3 7 9 0 0 6 
@@ -25,7 +25,7 @@ $ ./gosudoku -generate
     5 2 0 6 0 1 0 8 0 
 
 
-####Solve a sudoku puzzle(will be asked to enter sudoku to solve):
+#### Solve a sudoku puzzle(will be asked to enter sudoku to solve):
 ```
 $ ./gosudoku -solve
 ```
@@ -56,7 +56,7 @@ SOLUTION:
 
 ```
 
-####Both(will be asked to press a key to retrieve solution):
+#### Both(will be asked to press a key to retrieve solution):
 ```
 $ ./gosudoku -both
 ```
