@@ -43,7 +43,7 @@ func main()  {
 			}
 		}
 		p()
-
+		p("SOLUTION:")
 		// Solve sudoku
 		solveSudoku(&data)
 		return
