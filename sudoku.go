@@ -8,7 +8,9 @@ import (
 	"math"
 )
 
-type Grid [9][9]int
+const Size = 9
+
+type Grid [Size][Size]int
 
 func SolveSudoku(data *Grid) bool {
 
@@ -18,7 +20,7 @@ func SolveSudoku(data *Grid) bool {
 		return true
 	}
 
-	for i:=1; i<=9; i++ {
+	for i:=1; i<= Size; i++ {
 		if isValid(data, row, col, i) {
 
 			data[row][col] = i
@@ -44,9 +46,9 @@ func GenerateSudoku(data *Grid, removeNDigits int) error {
 		for i:=0 + g*3; i<3 + g*3; i++ {
 			for j:=0 + g*3; j < 3 + g*3; j++ {
 
-				n := rand.Intn(9)+1
+				n := rand.Intn(Size)+1
 				for set[n] {
-					n = rand.Intn(9)+1
+					n = rand.Intn(Size)+1
 				}
 				data[i][j] = n
 				set[n] = true
@@ -63,8 +65,8 @@ func GenerateSudoku(data *Grid, removeNDigits int) error {
 	// removeNDigits from generated sudoku
 	for removeNDigits > 0 {
 
-		if i,j := rand.Intn(math.MaxInt32), rand.Intn(math.MaxInt32); data[i%9][j%9] != 0 {
-			data[i%9][j%9] = 0
+		if i,j := rand.Intn(math.MaxInt32), rand.Intn(math.MaxInt32); data[i%Size][j%Size] != 0 {
+			data[i%Size][j%Size] = 0
 			removeNDigits--
 		}
 	}
@@ -73,8 +75,8 @@ func GenerateSudoku(data *Grid, removeNDigits int) error {
 }
 
 func findUnassignedLocation(data *Grid, row *int, col *int) bool{
-	for *row = 0; *row < 9; *row += 1 {
-		for *col = 0; *col < 9; *col += 1 {
+	for *row = 0; *row < Size; *row += 1 {
+		for *col = 0; *col < Size; *col += 1 {
 			if data[*row][*col] == 0 {
 				return true
 			}
@@ -91,7 +93,7 @@ func isValid(data *Grid, row int, col int, value int) bool {
 }
 
 func isValidInRow(data *Grid, row int, value int) bool {
-	for i:=0; i<9; i++ {
+	for i:=0; i< Size; i++ {
 		if data[row][i]==value {
 			return false
 		}
@@ -100,7 +102,7 @@ func isValidInRow(data *Grid, row int, value int) bool {
 }
 
 func isValidInCol(data *Grid, col int, value int) bool {
-	for i:=0; i<9; i++ {
+	for i:=0; i< Size; i++ {
 		if data[i][col]==value {
 			return false
 		}
@@ -120,8 +122,8 @@ func isValidInGrid(data *Grid, row int, col int, value int) bool {
 }
 
 func PrintSudoku(data *Grid) {
-	for i := 0; i < 9; i++ {
-		for j := 0; j < 9; j++ {
+	for i := 0; i < Size; i++ {
+		for j := 0; j < Size; j++ {
 			fmt.Print(data[i][j], " ")
 		}
 		fmt.Println()

@@ -2,9 +2,13 @@ package main
 
 import "fmt"
 import (
-	"github.com/bhaskarsaraogi/gosudoku"
 	"flag"
+
+	"github.com/bhaskarsaraogi/gosudoku"
 )
+
+var p = fmt.Println
+const blankSpaces  = 40
 
 func main()  {
 
@@ -13,59 +17,55 @@ func main()  {
 	both := flag.Bool("both", false, "Generate a sudoku puzzle and follow with solution")
 
 	var data gosudoku.Grid
-	defer fmt.Println()
 
 	flag.Parse()
 
 	if (*generate && *solve) || *both {
-		err := gosudoku.GenerateSudoku(&data, 40)
-		if err != nil {
-			fmt.Println(err)
-		} else {
-			gosudoku.PrintSudoku(&data)
-		}
+		generateSudoku(&data)
 
-		fmt.Println()
-
-		fmt.Println("Enter any key to get solution")
+		p("Enter any key to get solution")
 		fmt.Scanf("%s")
 
-		if gosudoku.SolveSudoku(&data) {
-			gosudoku.PrintSudoku(&data)
-		} else {
-			fmt.Println("No Grid could be formed!")
-		}
+		solveSudoku(&data)
 		return
 	}
 
 	if *generate {
-		err := gosudoku.GenerateSudoku(&data, 40)
-		if err != nil {
-			fmt.Println(err)
-		} else {
-			gosudoku.PrintSudoku(&data)
-		}
-		return
+		generateSudoku(&data)
 	}
 
 	if *solve {
-		fmt.Println("Please enter the sudoku(enter 0 for unassigned location):")
+		p("Please enter the sudoku(enter 0 for unassigned location):")
 
-		for i:=0; i<9; i++ {
-			for j:=0; j<9; j++ {
+		for i := 0; i < gosudoku.Size; i++ {
+			for j := 0; j < gosudoku.Size; j++ {
 				fmt.Scanf("%d", &data[i][j])
 			}
 		}
-
-		fmt.Println()
+		p()
 
 		// Solve sudoku
-		if gosudoku.SolveSudoku(&data) {
-			gosudoku.PrintSudoku(&data)
-		} else {
-			fmt.Println("No Grid could be formed!")
-		}
+		solveSudoku(&data)
 		return
 	}
 
+}
+func generateSudoku(data *gosudoku.Grid) {
+	err := gosudoku.GenerateSudoku(data, blankSpaces)
+	if err != nil {
+		p(err)
+	} else {
+		gosudoku.PrintSudoku(data)
+	}
+	p()
+	return
+}
+
+func solveSudoku(data *gosudoku.Grid)  {
+	if gosudoku.SolveSudoku(data) {
+		gosudoku.PrintSudoku(data)
+	} else {
+		p("No Grid could be formed!")
+	}
+	return
 }
