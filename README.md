@@ -10,7 +10,7 @@ $ go get github.com/bhaskarsaraogi/gosudoku/cmd/gosudoku
 
 #### Generate a sudoku puzzle:
 ```
-$ ./gosudoku -generate
+$ gosudoku -generate
 ```
 ###### Output
 
@@ -27,7 +27,7 @@ $ ./gosudoku -generate
 
 #### Solve a sudoku puzzle(will be asked to enter sudoku to solve):
 ```
-$ ./gosudoku -solve
+$ gosudoku -solve
 ```
 ###### Output
 ```
@@ -58,7 +58,7 @@ SOLUTION:
 
 #### Both(will be asked to press a key to retrieve solution):
 ```
-$ ./gosudoku -both
+$ gosudoku -both
 ```
 
 ###### Output
